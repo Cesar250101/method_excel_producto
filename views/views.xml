@@ -1,0 +1,62 @@
+<odoo>
+  <data>
+
+    <!-- model.name inherit tree view -->
+    <record id="method_excel_producto_tree" model="ir.ui.view">
+        <field name="name">method.excel.producto.tree</field>
+        <field name="model">product.template</field>
+        <field name="inherit_id" ref="product.product_template_tree_view"/>
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='categ_id']" position="after">
+                <field name="disponibilidad" />
+            </xpath>      
+
+            
+        </field>
+    </record>
+
+    <!-- model.name inherit form view -->
+    <record id="method_excel_producto_form" model="ir.ui.view">
+      <field name="name">method.excel.producto.form</field>
+      <field name="model">product.template</field>
+      <field name="inherit_id" ref="product.product_template_only_form_view"/>
+      <field name="arch" type="xml">
+            <xpath expr="//field[@name='barcode']" position="after">
+                <field name="disponibilidad" />
+            </xpath>      
+        </field>
+    </record>
+
+    
+    <!-- explicit list view definition -->
+     <record id="method_excel_producto_importar_product_wizard" model="ir.ui.view">
+        <field name="name">Importar Stock desde Archivo Excel</field>
+        <field name="model">method_excel_producto.importar.wizard</field>
+        <field name="arch" type="xml">
+            <form string="Import Bank Statement Lines">
+                <group>
+                    <field name="file" filename="name"/>
+                    <field name="file_opt" widget="radio" invisible="1"/>
+                </group>
+                <footer>
+                    <button name="import_file" string="Import" type="object"/>
+                    or
+                    <button name="cancel" string="Cancel" class="oe_link"/>
+                </footer>
+            </form>
+        </field>
+    </record>
+
+        <record id="method_excel_producto_wizard" model="ir.actions.act_window">
+            <field name="name">method.excel.producto.wizard</field>
+            <field name="res_model">method_excel_producto.importar.wizard</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">form</field>
+            <field name="target">new</field>
+        </record>
+  
+    <menuitem name="Importar Stock" id="method_excel_producto.menu_1_list" parent="stock.menu_stock_warehouse_mgmt"
+              action="method_excel_producto_wizard"/>
+    -->
+  </data>
+</odoo>
